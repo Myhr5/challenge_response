@@ -6,9 +6,11 @@ class AppTextfield extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.hintText,
-      required this.obscureText});
+      required this.obscureText,
+      this.validator});
 
   final TextEditingController controller;
+  final String? Function(String?)? validator;
   final String hintText;
   final bool obscureText;
 
@@ -18,8 +20,9 @@ class AppTextfield extends StatelessWidget {
       height: 55,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: TextField(
+        child: TextFormField(
           controller: controller,
+          validator: validator,
           obscureText: obscureText,
           decoration: InputDecoration(
             enabledBorder: const UnderlineInputBorder(),

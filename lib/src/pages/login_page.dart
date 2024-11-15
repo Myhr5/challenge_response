@@ -14,6 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
 
   @override
@@ -38,23 +39,34 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const Divider(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 6),
-                      child: AppTextfield(
-                          controller: passwordController,
-                          hintText: 'Senha',
-                          obscureText: true),
-                    ),
-                    AppButton(
-                      text: "Entrar",
-                      onTap: () {
-                        Navigator.of(context).pushNamed(HomePage.routeName);
-                      },
-                    )
-                  ],
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20, bottom: 6),
+                        child: AppTextfield(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Digite uma senha.';
+                              }
+                              return null;
+                            },
+                            controller: passwordController,
+                            hintText: 'Senha',
+                            obscureText: true),
+                      ),
+                      AppButton(
+                        text: "Entrar",
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.of(context).pushNamed(HomePage.routeName);
+                          }
+                        },
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
