@@ -1,17 +1,19 @@
 import 'package:challenge_response/src/components/app_button.dart';
 import 'package:challenge_response/src/components/app_textfield.dart';
+import 'package:challenge_response/src/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  static const routeName = '/login';
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final passwordController = TextEditingController();
 
   @override
@@ -46,12 +48,14 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: 'Senha',
                           obscureText: true),
                     ),
-                    const AppButton(
+                    AppButton(
                       text: "Entrar",
+                      onTap: () {
+                        Navigator.of(context).pushNamed(HomePage.routeName);
+                      },
                     )
                   ],
                 )
-                   
               ],
             ),
           ),
