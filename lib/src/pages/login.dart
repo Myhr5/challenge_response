@@ -1,3 +1,5 @@
+import 'package:challenge_response/src/components/app_button.dart';
+import 'package:challenge_response/src/components/app_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +11,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: SizedBox(
           width: 300,
-          height: 400,
+          height: 300,
           child: DecoratedBox(
             decoration: const BoxDecoration(
                 color: Colors.white,
@@ -30,7 +35,23 @@ class _LoginPageState extends State<LoginPage> {
                     style: GoogleFonts.dmSerifText(fontSize: 30),
                   ),
                 ),
-                const Divider()
+                const Divider(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 6),
+                      child: AppTextfield(
+                          controller: passwordController,
+                          hintText: 'Senha',
+                          obscureText: true),
+                    ),
+                    const AppButton(
+                      text: "Entrar",
+                    )
+                  ],
+                )
+                   
               ],
             ),
           ),
