@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +12,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String message = '';
+  List<String> errors = [''];
+
+  Future<void> _getSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      message = prefs.getString('message') ?? '';
+      errors = prefs.getStringList('errors') ?? [''];
+    });
+  }
+
+  Future<void> _removePreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('message');
+    await prefs.remove('errors');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getSharedPreferences();
+  }
+  
   Future<bool?> _showBackDialog() => showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -27,6 +53,7 @@ class _HomePageState extends State<HomePage> {
               TextButton(
                 child: const Text('Sair'),
                 onPressed: () {
+                  _removePreferences();
                   Navigator.pop(context, true);
                 },
               )
@@ -57,9 +84,20 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(12))),
               child: Center(
-                child: Text(
-                  'Home',
-                  style: GoogleFonts.dmSerifText(fontSize: 30),
+                child: Column(
+                  children: [
+                    Text(
+                      'Home',
+                      style: GoogleFonts.dmSerifText(fontSize: 30),
+                    ),
+                    Text(message),
+                    // ListView.builder(
+                    //     itemCount: errors.length,
+                    //     itemBuilder: (context, index) {
+                    //       final item = errors[index];
+                    //       return Text(item);
+                    //     })
+                  ],
                 ),
               ),
             ),
