@@ -1,6 +1,31 @@
 {
-  "appTitle": "challenge_response",
+  "appTitle": "Password Validator",
   "@appTitle": {
-    "description": "The title of the application"
+    "description": "Password Validator"
+  },
+  "appSubtitle": "Make sure you have a strong password!",
+  "form":{
+    "hintText": "Password",
+    "nullPasswordAlert": "Enter a password",
+    "appButton": "Validate"
+  },
+  "alertDialog":{
+    "content": "Are you sure you?",
+    "cancelButton": "Cancel",
+    "goOutButton": "Leave"
+  },
+  "apiResponse":{
+    "validPassword": "Valid password!",
+    "unvalidPassword":{
+      "message": "Invalid password!",
+      "errors":{
+        "minimumChar": "Minimum 8 characteres",
+        "minimumDigit": "Must have a digit",
+        "lowerChar": "Must have a lower char",
+        "upperChar": "Must have an uppercase char",
+        "specialChar": "Must have a special char"
+      }
+    },
+    "goodJob": "Good job!!! 🎉"
   }
 }

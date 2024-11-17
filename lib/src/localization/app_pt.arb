@@ -1,0 +1,31 @@
+{
+  "appTitle": "Validador de Senhas",
+  "@appTitle": {
+    "description": "Validador de Senhas"
+  },
+  "appSubtitle": "Verifique se você tem uma senha forte!",
+  "form":{
+    "hintText": "Senha",
+    "nullPasswordAlert": "Digite uma senha",
+    "appButton": "Validar"
+  },
+  "alertDialog":{
+    "content": "Tem certeza que deseja sair?",
+    "cancelButton": "Cancelar",
+    "goOutButton": "Sair"
+  },
+  "apiResponse":{
+    "validPassword": "Senha válida!",
+    "unvalidPassword":{
+      "message": "Senha inválida!",
+      "errors":{
+        "minimumChar": "Mínimo de 8 caracteres",
+        "minimumDigit": "Deve ter um número",
+        "lowerChar": "Deve ter uma letra minúscula",
+        "upperChar": "Deve ter uma letra maiúscula",
+        "specialChar": "Deve ter um caractere especial"
+      }
+    },
+    "goodJob": "Bom trabalho!!! 🎉"
+  }
+}
