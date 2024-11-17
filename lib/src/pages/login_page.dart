@@ -3,8 +3,10 @@ import 'package:challenge_response/src/components/app_textfield.dart';
 import 'package:challenge_response/src/pages/home_page.dart';
 import 'package:challenge_response/src/data/datasource/validate_impl_api.dart';
 import 'package:challenge_response/src/model/validate_response_model.dart';
+import 'package:challenge_response/src/shared/get_errors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,20 +21,34 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   late ValidateResponse? validateResponse;
+  late Future<String> error;
   bool isCircularProgress = false;
 
 
   Future<void> _validate() async {
     final prefs = await SharedPreferences.getInstance();
     String message = '';
-    List<String> errors = [''];
+    List<String> initialErrors = [''];
+    List<String> errors = [];
 
-    validateResponse = await validate(passwordController.text);
+    validateResponse =
+        await validate(passwordController.text).catchError((err) {
+      setState(() {
+        isCircularProgress = false;
+      });
+      return error = err;
+    });
 
     if (validateResponse != null) {
       message = validateResponse!.message;
-      errors = validateResponse!.errors ?? [''];
+      initialErrors = validateResponse!.errors ?? [];
     }
+
+for (var value in initialErrors) {
+      errors.add(getErrors(value));
+    }
+
+
 
     await prefs.setString('message', message);
     await prefs.setStringList('errors', errors);
@@ -49,9 +65,9 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
 
-    return const Text(
-      'Validar',
-      style: TextStyle(
+    return Text(
+      AppLocalizations.of(context)!.formAppButton,
+      style: const TextStyle(
           color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
     );
   }
@@ -70,20 +86,22 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.all(Radius.circular(12))),
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 10),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 10),
                   child: Text(
-                    'Validador de Senhas',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    AppLocalizations.of(context)!.appTitle,
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Divider(),
                 const SizedBox(
                   height: 12,
                 ),
-                const Text(
-                  'Verifique se você tem uma senha forte!',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                Text(
+                  AppLocalizations.of(context)!.appSubtitle,
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 Form(
                   key: _formKey,
@@ -95,12 +113,13 @@ class _LoginPageState extends State<LoginPage> {
                         child: AppTextfield(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Digite uma senha.';
+                              return AppLocalizations.of(context)!
+                                  .formNullPasswordAlert;
                               }
                               return null;
                             },
                             controller: passwordController,
-                            hintText: 'Senha',
+                          hintText: AppLocalizations.of(context)!.formHintText,
                           obscureText: false,
                         ),
                       ),

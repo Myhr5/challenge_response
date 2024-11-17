@@ -1,16 +1,17 @@
 String getErrors(String value) {
   switch (value) {
     case 'Minimum 8 characteres':
-      return 'minimumChar';
+      return 'errorMinimumChar';
     case 'Must have a digit':
-      return 'minimumDigit';
+      return 'errorMinimumDigit';
     case 'Must have a lower char':
-      return 'lowerChar';
+      return 'errorLowerChar';
     case 'Must have an uppercase char':
-      return 'upperChar';
+      return 'errorUpperChar';
     case 'Must have a special char':
-      return 'specialChar';
+      return 'errorSpecialChar';
   }
 
   return '';
+
 }

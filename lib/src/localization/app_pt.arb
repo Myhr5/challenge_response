@@ -4,28 +4,28 @@
     "description": "Validador de Senhas"
   },
   "appSubtitle": "Verifique se você tem uma senha forte!",
-  "form":{
-    "hintText": "Senha",
-    "nullPasswordAlert": "Digite uma senha",
-    "appButton": "Validar"
-  },
-  "alertDialog":{
-    "content": "Tem certeza que deseja sair?",
-    "cancelButton": "Cancelar",
-    "goOutButton": "Sair"
-  },
-  "apiResponse":{
-    "validPassword": "Senha válida!",
-    "unvalidPassword":{
-      "message": "Senha inválida!",
-      "errors":{
-        "minimumChar": "Mínimo de 8 caracteres",
-        "minimumDigit": "Deve ter um número",
-        "lowerChar": "Deve ter uma letra minúscula",
-        "upperChar": "Deve ter uma letra maiúscula",
-        "specialChar": "Deve ter um caractere especial"
+  "formHintText": "Senha",
+  "formNullPasswordAlert": "Digite uma senha",
+  "formAppButton": "Validar",
+  "alertDialogContent": "Tem certeza que deseja sair?",
+  "alertDialogCancelButton": "Cancelar",
+  "alertDialogGoOutButton": "Sair",
+  "validPassword": "Senha válida!",
+  "invalidPassword": "Senha inválida!",
+  "error": "{error, select, other{''} errorMinimumChar{Mínimo de 8 caracteres} errorMinimumDigit{Deve ter um número} errorLowerChar{Deve ter uma letra minúscula} errorUpperChar{Deve ter uma letra maiúscula} errorSpecialChar{Deve ter um caractere especial}}",
+  "@error": {
+      "description": "Error messages",
+      "placeholders": {
+          "error": {
+            "type":"String"
+          }
       }
-    },
-    "goodJob": "Bom trabalho!!! 🎉"
-  }
+  },
+  "errorMinimumChar": "Mínimo de 8 caracteres",
+  "errorMinimumDigit": "Deve ter um número",
+  "errorLowerChar": "Deve ter uma letra minúscula",
+  "errorUpperChar": "Deve ter uma letra maiúscula",
+  "errorSpecialChar": "Deve ter um caractere especial",
+  "errorDefault": "",
+  "goodJob": "Bom trabalho!!! 🎉"
 }

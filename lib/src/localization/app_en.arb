@@ -4,28 +4,28 @@
     "description": "Password Validator"
   },
   "appSubtitle": "Make sure you have a strong password!",
-  "form":{
-    "hintText": "Password",
-    "nullPasswordAlert": "Enter a password",
-    "appButton": "Validate"
-  },
-  "alertDialog":{
-    "content": "Are you sure you?",
-    "cancelButton": "Cancel",
-    "goOutButton": "Leave"
-  },
-  "apiResponse":{
-    "validPassword": "Valid password!",
-    "unvalidPassword":{
-      "message": "Invalid password!",
-      "errors":{
-        "minimumChar": "Minimum 8 characteres",
-        "minimumDigit": "Must have a digit",
-        "lowerChar": "Must have a lower char",
-        "upperChar": "Must have an uppercase char",
-        "specialChar": "Must have a special char"
+  "formHintText": "Password",
+  "formNullPasswordAlert": "Enter a password",
+  "formAppButton": "Validate",
+  "alertDialogContent": "Are you sure you?",
+  "alertDialogCancelButton": "Cancel",
+  "alertDialogGoOutButton": "Leave",
+  "validPassword": "Valid password!",
+  "invalidPassword": "Invalid password!",
+  "error": "{error, select, other{''} errorMinimumChar{Minimum 8 characteres} errorMinimumDigit{Must have a digit} errorLowerChar{Must have a lower char} errorUpperChar{Must have an uppercase char} errorSpecialChar{Must have a special char}}",
+  "@error": {
+      "description": "Error messages",
+      "placeholders": {
+          "error": {
+            "type":"String"
+          }
       }
-    },
-    "goodJob": "Good job!!! 🎉"
-  }
+  },
+  "errorMinimumChar": "Minimum 8 characteres",
+  "errorMinimumDigit": "Must have a digit",
+  "errorLowerChar": "Must have a lower char",
+  "errorUpperChar": "Must have an uppercase char",
+  "errorSpecialChar": "Must have a special char",
+  "errorDefault": "",
+  "goodJob": "Good job!!! 🎉"
 }

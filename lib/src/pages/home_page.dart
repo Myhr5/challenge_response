@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,18 +40,20 @@ class _HomePageState extends State<HomePage> {
   Future<bool?> _showBackDialog() => showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-            content: const Text('Tem certeza que deseja sair?'),
+            content: Text(AppLocalizations.of(context)!.alertDialogContent),
             contentPadding: const EdgeInsets.only(top: 25.0, left: 25),
             actionsPadding: const EdgeInsets.only(bottom: 12),
             actions: [
               TextButton(
-                child: const Text('Cancelar'),
+                child:
+                    Text(AppLocalizations.of(context)!.alertDialogCancelButton),
                 onPressed: () {
                   Navigator.pop(context, false);
                 },
               ),
               TextButton(
-                child: const Text('Sair'),
+                child:
+                    Text(AppLocalizations.of(context)!.alertDialogGoOutButton),
                 onPressed: () {
                   _removePreferences();
                   Navigator.pop(context, true);
@@ -99,9 +102,9 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: errors
                               .map((e) => Text(
-                                    e.isNotEmpty
-                                        ? '• $e.'
-                                        : 'Bom trabalho!!! 🎉',
+                                    e.isNotEmpty && e != ''
+                                        ? '• ${AppLocalizations.of(context)!.error(e)}.'
+                                        : AppLocalizations.of(context)!.goodJob,
                                     style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400),
