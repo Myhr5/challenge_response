@@ -1,7 +1,7 @@
 class ValidateResponse {
   final String? id;
   final String message;
-  final List<dynamic>? errors;
+  final List<String>? errors;
 
   const ValidateResponse({
     required this.message,
@@ -13,6 +13,6 @@ class ValidateResponse {
       ValidateResponse(
         id: json['id'] ?? '',
         message: json['message'],
-        errors: json['errors'] as List<String>,
+        errors: List<String>.from(json['errors'] ?? ['']),
       );
 }

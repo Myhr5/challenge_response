@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTextfield extends StatelessWidget {
   const AppTextfield(
@@ -28,10 +27,10 @@ class AppTextfield extends StatelessWidget {
             enabledBorder: const UnderlineInputBorder(),
             focusedBorder: const UnderlineInputBorder(),
             hintText: hintText,
-            hintStyle: GoogleFonts.trirong(
-              color: Colors.grey.shade500,
-              fontSize: 15,
-            ),
+              hintStyle: TextStyle(
+                color: Colors.grey.shade500,
+                fontSize: 15,
+              )
           ),
         ),
       ),

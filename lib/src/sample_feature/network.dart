@@ -31,8 +31,8 @@ Future<ValidateResponse> validate(String password) async {
   if (response.statusCode == 202 || response.statusCode == 400) {
     return ValidateResponse.fromJson(
         jsonDecode(response.body) as Map<String, dynamic>);
-  } else if (response.statusCode == 400) {
-    throw Exception('Método não permitido');
+  } else if (response.statusCode == 503) {
+    throw Exception('Serviço Indisponível');
   } else if (response.statusCode == 405) {
     throw Exception('Método não permitido');
   } else if (response.statusCode == 422) {

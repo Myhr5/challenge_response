@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,7 +77,7 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: SizedBox(
             width: 300,
-            height: 300,
+            height: 220,
             child: DecoratedBox(
               decoration: const BoxDecoration(
                   color: Colors.white,
@@ -86,17 +85,30 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
-                      'Home',
-                      style: GoogleFonts.dmSerifText(fontSize: 30),
+                    
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, bottom: 26),
+                      child: Text(message,
+                          style: const TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
                     ),
-                    Text(message),
-                    // ListView.builder(
-                    //     itemCount: errors.length,
-                    //     itemBuilder: (context, index) {
-                    //       final item = errors[index];
-                    //       return Text(item);
-                    //     })
+                    if (errors.isNotEmpty)
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: errors
+                              .map((e) => Text(
+                                    '• $e.',
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ))
+                              .toList(),
+                        ),
+                      )
+                    else
+                      Container()
                   ],
                 ),
               ),

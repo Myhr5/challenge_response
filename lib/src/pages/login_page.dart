@@ -4,7 +4,6 @@ import 'package:challenge_response/src/pages/home_page.dart';
 import 'package:challenge_response/src/sample_feature/network.dart';
 import 'package:challenge_response/src/sample_feature/validate_response.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,13 +19,17 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   late ValidateResponse? validateResponse;
+  late Future<ValidateResponse> response;
+  bool isCircularProgress = false;
+
 
   Future<void> _validate() async {
     final prefs = await SharedPreferences.getInstance();
     String message = '';
-    List<dynamic> errors = [''];
+    List<String> errors = [''];
 
-    validateResponse = await validate(passwordController.text);
+    response = validate(passwordController.text);
+    validateResponse = await response;
 
     if (validateResponse != null) {
       message = validateResponse!.message;
@@ -34,7 +37,25 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     await prefs.setString('message', message);
-    await prefs.setStringList('erros', errors as List<String>);
+    await prefs.setStringList('errors', errors);
+  }
+
+  Widget changeButtonChild(bool value) {
+    if (value) {
+      return const SizedBox(
+        height: 18,
+        width: 18,
+        child: CircularProgressIndicator(
+          strokeWidth: 1,
+        ),
+      );
+    }
+
+    return const Text(
+      'Validar',
+      style: TextStyle(
+          color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
+    );
   }
 
   @override
@@ -43,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color.fromRGBO(183, 177, 226, 1),
       body: Center(
         child: SizedBox(
-          width: 300,
+          width: 320,
           height: 300,
           child: DecoratedBox(
             decoration: const BoxDecoration(
@@ -51,14 +72,21 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.all(Radius.circular(12))),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20, bottom: 10),
                   child: Text(
-                    'Login',
-                    style: GoogleFonts.dmSerifText(fontSize: 30),
+                    'Validador de Senhas',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Divider(),
+                const SizedBox(
+                  height: 12,
+                ),
+                const Text(
+                  'Verifique se você tem uma senha forte!',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                ),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -79,13 +107,19 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       AppButton(
-                        text: 'Entrar',
-                        onTap: () {
+                        widget: changeButtonChild(isCircularProgress),
+                        onTap: () async {
+                          setState(() {
+                            isCircularProgress = true;
+                          });
+
                           if (_formKey.currentState!.validate()) {
+                            await _validate();
+                            Navigator.pushNamed(context, HomePage.routeName);
+
                             setState(() {
-                              _validate();
+                              isCircularProgress = false;
                             });
-                            Navigator.of(context).pushNamed(HomePage.routeName);
                           }
                         },
                       )
