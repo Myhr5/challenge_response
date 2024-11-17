@@ -99,7 +99,9 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: errors
                               .map((e) => Text(
-                                    '• $e.',
+                                    e.isNotEmpty
+                                        ? '• $e.'
+                                        : 'Bom trabalho!!! 🎉',
                                     style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400),
