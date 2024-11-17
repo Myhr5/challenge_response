@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  const AppButton({super.key, this.onTap, required this.widget});
-
   final Function()? onTap;
   final Widget widget;
+
+  const AppButton({super.key, this.onTap, required this.widget});
 
   @override
   Widget build(BuildContext context) {

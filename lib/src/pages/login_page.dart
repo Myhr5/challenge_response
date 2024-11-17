@@ -1,8 +1,8 @@
 import 'package:challenge_response/src/components/app_button.dart';
 import 'package:challenge_response/src/components/app_textfield.dart';
 import 'package:challenge_response/src/pages/home_page.dart';
-import 'package:challenge_response/src/sample_feature/network.dart';
-import 'package:challenge_response/src/sample_feature/validate_response.dart';
+import 'package:challenge_response/src/data/datasource/validate_impl_api.dart';
+import 'package:challenge_response/src/model/validate_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   late ValidateResponse? validateResponse;
-  late Future<ValidateResponse> response;
   bool isCircularProgress = false;
 
 
@@ -28,8 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     String message = '';
     List<String> errors = [''];
 
-    response = validate(passwordController.text);
-    validateResponse = await response;
+    validateResponse = await validate(passwordController.text);
 
     if (validateResponse != null) {
       message = validateResponse!.message;

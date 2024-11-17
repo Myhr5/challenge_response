@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:challenge_response/src/sample_feature/validate_response.dart';
+import 'package:challenge_response/src/model/validate_response_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<ValidateResponse> validate(String password) async {
