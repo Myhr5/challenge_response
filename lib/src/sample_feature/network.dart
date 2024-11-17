@@ -1,20 +1,7 @@
 import 'dart:convert';
 
-import 'package:challenge_response/src/sample_feature/password.dart';
 import 'package:challenge_response/src/sample_feature/validate_response.dart';
 import 'package:http/http.dart' as http;
-
-Future<Password> getRadomPassword() async {
-  final response = await http.get(
-      Uri.parse('https://desafioflutter-api.modelviewlabs.com/random'),
-      headers: {'author': 'Mirele Fernandes - mirele.mrf@gmail.com'});
-
-  if (response.statusCode == 200) {
-    return Password.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Falha ao obter senha.');
-  }
-}
 
 Future<ValidateResponse> validate(String password) async {
   final response = await http.post(
